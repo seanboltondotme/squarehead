@@ -11,6 +11,15 @@ if (file_exists(__DIR__ . '/../.env')) {
     $dotenv->load();
 }
 
+// Map Railway MySQL addon vars to DB_* (when not already set)
+if (getenv('MYSQLHOST') && !getenv('DB_HOST')) {
+    $_ENV['DB_HOST'] = getenv('MYSQLHOST');
+    $_ENV['DB_PORT'] = getenv('MYSQLPORT') ?: '3306';
+    $_ENV['DB_USER'] = getenv('MYSQLUSER');
+    $_ENV['DB_PASS'] = getenv('MYSQLPASSWORD');
+    $_ENV['DB_NAME'] = getenv('MYSQLDATABASE');
+}
+
 // Create Slim app
 $app = AppFactory::create();
 

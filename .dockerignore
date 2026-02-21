@@ -1,0 +1,30 @@
+# Dependencies (reinstalled in image)
+frontend/node_modules
+backend/vendor
+
+# Git and IDE
+.git
+.gitignore
+.cursor
+*.md
+!README.md
+
+# Local env and secrets
+.env
+.env.*
+!.env.example
+
+# Dev and test
+frontend/dist
+*.log
+backend/tests
+backend/database/*.sqlite
+*.sqlite
+
+# Docs and scripts not needed in image
+docs
+stepByStep.txt
+util
+setup-database.sh
+setup-backup-cron.sh
+send_reminders.sh

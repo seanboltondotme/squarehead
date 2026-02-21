@@ -1,8 +1,11 @@
 import axios from 'axios'
 
-// Create axios instance with default config
+// API base: use env in production (e.g. Railway), same-origin /api when not set
+const apiBaseURL = import.meta.env.VITE_API_URL ||
+  (import.meta.env.DEV ? 'http://localhost:8000/api' : '/api')
+
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api',
+  baseURL: apiBaseURL,
   timeout: 60000, // Increased timeout to 60 seconds for longer operations
   headers: {
     'Content-Type': 'application/json',
@@ -92,7 +95,7 @@ export const apiService = {
       console.log('🔑 Authorization header:', `Bearer ${JSON.parse(localStorage.getItem('auth-storage') || '{}').state?.token || 'dev-token-valid'}`.substring(0, 20) + '...')
       
       // Get base URL from api instance's baseURL to ensure consistency
-      const baseURL = api.defaults.baseURL || 'http://localhost:8000/api';
+      const baseURL = api.defaults.baseURL || '/api';
       const importURL = baseURL.replace(/\/api$/, '') + '/api/users/import';
       
       console.log('🌐 Using import URL:', importURL);
